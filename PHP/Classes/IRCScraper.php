@@ -69,7 +69,7 @@ class IRCScraper extends IRCClient
 		$this->groupList = array();
 		$this->serverType = $serverType;
 		$this->silent = $silent;
-		$this->_debug = ((defined('EFNET_BOT_DEBUG') && EFNET_BOT_DEBUG) || (defined('CORRUPT_BOT_DEBUG') && CORRUPT_BOT_DEBUG) || ('OPENTRACKER_BOT_DEBUG') && OPENTRACKER_BOT_DEBUG);
+		$this->_debug = ((defined('EFNET_BOT_DEBUG') && EFNET_BOT_DEBUG) || (defined('CORRUPT_BOT_DEBUG') && CORRUPT_BOT_DEBUG) || (defined('OPENTRACKER_BOT_DEBUG') && OPENTRACKER_BOT_DEBUG);
 		$this->resetPreVariables();
 		$this->startScraping();
 	}
