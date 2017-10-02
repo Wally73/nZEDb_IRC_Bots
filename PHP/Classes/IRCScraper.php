@@ -277,7 +277,7 @@ class IRCScraper extends IRCClient
 				break;
 			
 			case '#pre':
-				if ($this->checkSimilarity($poster, 'PREBOT')) {
+				if ($this->checkSimilarity($poster, 'prebot')) {
 					$this->opentracker_pre();
 				}
 				break;
