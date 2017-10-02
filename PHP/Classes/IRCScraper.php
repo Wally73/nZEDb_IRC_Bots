@@ -698,9 +698,8 @@ class IRCScraper extends IRCClient
 			$this->CurPre['source'] = '#pre@opentracker';
 			$this->siftMatches($matches);
 
-		//NUKE: Miclini-Sunday_Morning_P1-DIRFIX-DAB-03-30-2014-G4E [dirfix.must.state.name.of.release.being.fixed] [EthNet]
-		//UNNUKE: Youssoupha-Sur_Les_Chemins_De_Retour-FR-CD-FLAC-2009-0MNi [flac.rule.4.12.states.ENGLISH.artist.and.title.must.be.correct.and.this.is.not.ENGLISH] [LocalNet]
-		//MODNUKE: Miclini-Sunday_Morning_P1-DIRFIX-DAB-03-30-2014-G4E [nfo.must.state.name.of.release.being.fixed] [EthNet]
+		//<@PREBot> [UNNUKE] Gold.Rush.S07E00.The.9.Million.Dollar.Season.WEB.x264-TBS [get.real.dirfix] EthNet
+		//<@PREBot> [NUKE] Gold.Rush.S07E00.The.9.Million.Dollar.Season.DIRFIX.CONVERT.1080p.WEB.x264-TBS [mislabeled.S08E00] ZoNeNET
 		} else if (preg_match('/(?P<nuke>(MOD|OLD|RE|UN)?NUKE):\s+(?P<title>.+?)\s+\[(?P<reason>.+?)\]/i', $this->_channelData['message'], $matches)) {
 			$this->CurPre['source'] = '#pre@opentracker';
 			$this->siftMatches($matches);
