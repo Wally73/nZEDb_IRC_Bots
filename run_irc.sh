@@ -18,6 +18,11 @@ do
 		sleep 1
 	fi
 
+	if ! screen -list | grep -q "opentrackerbot"; then
+		screen -dmS corruptbot $PHP_PATH ${MAIN_PATH}/scrapeIRC.php opentracker
+		sleep 1
+	fi
+
 	if ! screen -list | grep -q "webbot"; then
 		screen -dmS webbot $PHP_PATH ${MAIN_PATH}/scrapeWEB.php
 	fi

@@ -329,6 +329,70 @@ if (defined('pre_settings')) {
 	}
 }
 
+/*******************************************************************************************************************
+	 * Opentracker bot settings. This is for the bot that will downloads PRE's from Opentrackers.org into your MySQL DB.
+	 ******************************************************************************************************************/
+	if (defined('opentracker_bot_settings')) {
+		/**
+		 * You can change this to set all 3 "names" below.
+		 */
+		$eUsername = '';
+		/**
+		 * The hostname/IP of the IRC or ZNC server.
+		 */
+		define('OPENTRACKER_BOT_SERVER', '127.0.0.1');
+		/**
+		 * The port of the IRC or ZNC server.
+		 * @default 6667
+		 */
+		define('OPENTRACKER_BOT_PORT', '6667');
+		/**
+		 * Nick name, the name everyone sees in the channel.
+		 */
+		define('OPENTRACKER_BOT_NICKNAME', "$eUsername");
+		/**
+		 * The name people will see in /whois
+		 */
+		define('OPENTRACKER_BOT_REALNAME', "$eUsername");
+		/**
+		 * Used to create your hostname.
+		 * @note This is the username to log in to ZNC or the IRC server.
+		 */
+		define('OPENTRACKER_BOT_USERNAME', "$eUsername");
+		/**
+		 * The password to log in to ZNC or the IRC server.
+		 * @default ''
+		 */
+		define('OPENTRACKER_BOT_PASSWORD', '');
+		/**
+		 * To use SSL or TLS encryption on the IRC or ZNC server.
+		 * @default false
+		 */
+		define('OPENTRACKER_BOT_ENCRYPTION', false);
+		/**
+		 * If you are having issues, turn on debug, it will show all send and received messages from and to IRC.
+		 * @default false
+		 */
+		define('OPENTRACKER_BOT_DEBUG', false);
+		/**
+		 * List of channels you can scrape.
+		 * @note Add // in front of the '#channelName to block it.
+		 */
+		define('OPENTRACKER_BOT_CHANNELS',
+			serialize(
+				array(
+					// Channel                             Password.
+					'#pre'						           => null,
+					//'#pre-all'				           => null,
+					//'#pre-cburns'				           => null,
+					//'#pre-corrupt'					   => null,
+					//'#pre-layer13'                  	   => null,
+					//'#pre-zenet'			               => null,					
+				)
+			)
+		);
+	}
+
 /**
  * Settings for scrapeREQ.php
  * These are all the settings for the web page for searching Request ID's.

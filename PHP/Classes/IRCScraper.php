@@ -69,7 +69,7 @@ class IRCScraper extends IRCClient
 		$this->groupList = array();
 		$this->serverType = $serverType;
 		$this->silent = $silent;
-		$this->_debug = ((defined('EFNET_BOT_DEBUG') && EFNET_BOT_DEBUG) || (defined('CORRUPT_BOT_DEBUG') && CORRUPT_BOT_DEBUG));
+		$this->_debug = ((defined('EFNET_BOT_DEBUG') && EFNET_BOT_DEBUG) || (defined('CORRUPT_BOT_DEBUG') && CORRUPT_BOT_DEBUG) || ('OPENTRACKER_BOT_DEBUG') && OPENTRACKER_BOT_DEBUG);
 		$this->resetPreVariables();
 		$this->startScraping();
 	}
@@ -93,6 +93,17 @@ class IRCScraper extends IRCClient
 				$channelList = unserialize(EFNET_BOT_CHANNELS);
 				break;
 
+			case 'openscraper':
+				$server   = OPENSCRAPER_BOT_SERVER;
+				$port     = OPENSCRAPER_BOT_PORT;
+				$nickname = OPENSCRAPER_BOT_NICKNAME;
+				$username = OPENSCRAPER_BOT_USERNAME;
+				$realName = OPENSCRAPER_BOT_REALNAME;
+				$password = OPENSCRAPER_BOT_PASSWORD;
+				$tls      = OPENSCRAPER_BOT_ENCRYPTION;
+				$channelList = unserialize(OPENSCRAPER_BOT_CHANNELS);
+				break;
+				
 			case 'corrupt':
 				$server      = CORRUPT_BOT_HOST;
 				$port        = CORRUPT_BOT_PORT;
@@ -262,6 +273,12 @@ class IRCScraper extends IRCClient
 			case '#tvnzb':
 				if ($this->checkSimilarity($poster, 'tweetie')) {
 					$this->tvnzb();
+				}
+				break;
+			
+			case '#pre':
+				if ($this->checkSimilarity($poster, 'PREBOT')) {
+					$this->opentracker_pre();
 				}
 				break;
 
@@ -668,6 +685,28 @@ class IRCScraper extends IRCClient
 		}
 	}
 
+	/**
+	 * Gets new PRE from #pre on Opentrackers.org
+	 *
+	 * @access protected
+	 */
+	protected function opentracker_pre()
+	{
+		//<@PREBot> [PRE] [TV-HD-X264] Dragon.Ball.Super.S01E37.iTALiAN.720p.HDTV.x264-ZOMBiE
+		//todo fix regex 
+		if (preg_match('/^PRE:\s+\[(?P<category>.+?)\]\s+(?P<title>.+)$/i', $this->_channelData['message'], $matches)) {
+			$this->CurPre['source'] = '#pre@opentracker';
+			$this->siftMatches($matches);
+
+		//NUKE: Miclini-Sunday_Morning_P1-DIRFIX-DAB-03-30-2014-G4E [dirfix.must.state.name.of.release.being.fixed] [EthNet]
+		//UNNUKE: Youssoupha-Sur_Les_Chemins_De_Retour-FR-CD-FLAC-2009-0MNi [flac.rule.4.12.states.ENGLISH.artist.and.title.must.be.correct.and.this.is.not.ENGLISH] [LocalNet]
+		//MODNUKE: Miclini-Sunday_Morning_P1-DIRFIX-DAB-03-30-2014-G4E [nfo.must.state.name.of.release.being.fixed] [EthNet]
+		} else if (preg_match('/(?P<nuke>(MOD|OLD|RE|UN)?NUKE):\s+(?P<title>.+?)\s+\[(?P<reason>.+?)\]/i', $this->_channelData['message'], $matches)) {
+			$this->CurPre['source'] = '#pre@opentracker';
+			$this->siftMatches($matches);
+		}
+	}
+	
 	/**
 	 * Check if we already have the PRE.
 	 *
