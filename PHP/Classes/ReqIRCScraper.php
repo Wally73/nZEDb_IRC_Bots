@@ -188,12 +188,6 @@ class ReqIRCScraper extends IRCClient
 				}
 				break;
 
-			case '#scnzb':
-				if ($this->checkSimilarity($poster, 'nzbs')) {
-					$this->scnzb();
-				}
-				break;
-
 			default:
 				if ($this->checkSimilarity($poster, 'alt-bin')) {
 					$this->alt_bin($channel);
@@ -410,22 +404,6 @@ class ReqIRCScraper extends IRCClient
 		//NEW [NDS] PRE: Honda_ATV_Fever_USA_NDS-EXiMiUS
 		if (preg_match('/NEW\s+\[NDS\]\s+PRE:\s+(?P<title>.+)/i', $this->_channelData['message'], $matches)) {
 			$this->CurPre['source']   = 'alt.binaries.games.nintendods';
-			$this->CurPre['title'] = $this->db->escapeString($matches['title']);
-			$this->CurPre['reqid'] = $matches['reqid'];
-			$this->checkForDupe();
-		}
-	}
-
-	/**
-	 * Gets new PRE from #scnzb (boneless)
-	 *
-	 * @access protected
-	 */
-	protected function scnzb()
-	{
-		//[Complete][512754] Formula1.2014.Malaysian.Grand.Prix.Team.Principals.Press.Conference.720p.HDTV.x264-W4F  NZB: http://scnzb.eu/1pgOmwj
-		if (preg_match('/\[Complete\]\[(?P<reqid>\d+)\]\s*(?P<title>.+?)\s+NZB:/i', $this->_channelData['message'], $matches)) {
-			$this->CurPre['source']  = 'alt.binaries.boneless';
 			$this->CurPre['title'] = $this->db->escapeString($matches['title']);
 			$this->CurPre['reqid'] = $matches['reqid'];
 			$this->checkForDupe();

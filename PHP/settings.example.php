@@ -267,8 +267,6 @@ if (defined('pre_settings')) {
 					'#alt.binaries.games.wii'              => null,
 					'#alt.binaries.games.xbox360'          => null,
 					'#alt.binaries.sony.psp'               => null,
-					'#scnzb'                               => null,
-					'#tvnzb'                               => null,
 					// The following require passwords:
 					//'#alt.binaries.teevee'                 => '',
 					//'#alt.binaries.moovee'                 => '',
@@ -495,8 +493,6 @@ else if (defined('req_settings')) {
 				'#alt.binaries.games.wii'              => null,
 				'#alt.binaries.games.xbox360'          => null,
 				'#alt.binaries.sony.psp'               => null,
-				'#scnzb'                               => null,
-				'#tvnzb'                               => null,
 				// The following require passwords:
 				//'#alt.binaries.teevee'                 => '',
 				//'#alt.binaries.moovee'                 => '',

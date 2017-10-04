@@ -58,7 +58,7 @@ class IRCScraper extends IRCClient
 	/**
 	 * Construct
 	 *
-	 * @param string       $serverType   efnet | corrupt
+	 * @param string       $serverType   efnet | corrupt | opentracker
 	 * @param bool         $silent       Run this in silent mode (no text output).
 	 *
 	 * @access public
@@ -264,18 +264,6 @@ class IRCScraper extends IRCClient
 				}
 				break;
 
-			case '#scnzb':
-				if ($this->checkSimilarity($poster, 'nzbs')) {
-					$this->scnzb();
-				}
-				break;
-
-			case '#tvnzb':
-				if ($this->checkSimilarity($poster, 'tweetie')) {
-					$this->tvnzb();
-				}
-				break;
-			
 			case '#pre':
 				if ($this->checkSimilarity($poster, 'prebot')) {
 					$this->opentracker_pre();
@@ -596,38 +584,6 @@ class IRCScraper extends IRCClient
 			$this->CurPre['source']   = '#a.b.games.nintendods';
 			$this->CurPre['groupid']  = $this->getGroupID('alt.binaries.games.nintendods');
 			$this->CurPre['category'] = 'NDS';
-			$this->siftMatches($matches);
-		}
-	}
-
-	/**
-	 * Gets new PRE from #scnzb (boneless)
-	 *
-	 * @access protected
-	 */
-	protected function scnzb()
-	{
-		//[Complete][512754] Formula1.2014.Malaysian.Grand.Prix.Team.Principals.Press.Conference.720p.HDTV.x264-W4F  NZB: http://scnzb.eu/1pgOmwj
-		if (preg_match('/\[Complete\]\[(?P<reqid>\d+)\]\s*(?P<title>.+?)\s+NZB:/i', $this->_channelData['message'], $matches)) {
-			$this->CurPre['source']  = '#scnzb';
-			$this->CurPre['groupid'] = $this->getGroupID('alt.binaries.boneless');
-			$this->siftMatches($matches);
-		}
-	}
-
-	/**
-	 * Gets new PRE from #tvnzb (sickbeard)
-	 *
-	 * @access protected
-	 */
-	protected function tvnzb()
-	{
-		//[SBINDEX] Rev.S03E02.HDTV.x264-TLA :: TV > HD :: 210.13 MB :: Aired: 31/Mar/2014 :: http://lolo.sickbeard.com/getnzb/aa10bcef235c604612dd61b0627ae25f.nzb
-		if (preg_match('/\[SBINDEX\]\s+(?P<title>.+?)\s+::\s+(?P<sbcat>.+?)\s+::\s+(?P<size>.+?)\s+::\s+Aired/i', $this->_channelData['message'], $matches)) {
-			if (preg_match('/^(?P<first>.+?)\s+>\s+(?P<last>.+?)$/', $matches['sbcat'], $match)) {
-				$matches['category'] = $match['first'] . '-' . $match['last'];
-			}
-			$this->CurPre['source'] = '#tvnzb';
 			$this->siftMatches($matches);
 		}
 	}
