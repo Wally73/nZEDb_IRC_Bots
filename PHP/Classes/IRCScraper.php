@@ -93,6 +93,7 @@ class IRCScraper extends IRCClient
 				$channelList = unserialize(EFNET_BOT_CHANNELS);
 				break;
 
+			// opentracker
 			case 'openscraper':
 				$server   = OPENSCRAPER_BOT_SERVER;
 				$port     = OPENSCRAPER_BOT_PORT;
@@ -264,6 +265,7 @@ class IRCScraper extends IRCClient
 				}
 				break;
 
+			// opentracker
 			case '#pre':
 				if ($this->checkSimilarity($poster, 'prebot')) {
 					$this->opentracker_pre();
@@ -649,6 +651,13 @@ class IRCScraper extends IRCClient
 	protected function opentracker_pre()
 	{
 		//<@PREBot> [PRE] [TV-HD-X264] Dragon.Ball.Super.S01E37.iTALiAN.720p.HDTV.x264-ZOMBiE
+		//<@PREBot> [PRE] [XXX-IMAGESET] AllOver30.com_17.10.25.Jamie.Hernandez.XXX.iMAGESET-YAPG
+		//<@PREBot> [PRE] [XXX-HD] SpecialFeetForce.17.10.23.July.Johnson.Princess.Of.Pain.Mia.Blow.Valeria.Jones.And.June.XXX.1080p.MP4-KTR
+	    //<@PREBot> [PRE] [TV-WEB-HD-X264] Outlander.S03E04.720p.WEB.h264-CONVOY
+		//<@PREBot> [PRE] [TV-SD-X264] Britcam.Emergency.On.Our.Streets.S01E03.PDTV.x264-PLUTONiUM
+		//<@PREBot> [PRE] [MP3-WEB] Defari-Rare_Poise-WEB-2017-ENRAGED
+		//<@PREBot> [PRE] [TV-SD-X264] GartenKult.S01E03.Der.Rosengarten.GERMAN.DOKU.WS.HDTV.x264-aWake
+		//<@PREBot> [PRE] [BLURAY-X264] 1941.1979.720p.BluRay.x264-FLAME
 		//todo fix regex 
 		if (preg_match('/^PRE:\s+\[(?P<category>.+?)\]\s+(?P<title>.+)$/i', $this->_channelData['message'], $matches)) {
 			$this->CurPre['source'] = '#pre@opentracker';
