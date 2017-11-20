@@ -659,7 +659,7 @@ class IRCScraper extends IRCClient
 		//<@PREBot> [PRE] [TV-SD-X264] GartenKult.S01E03.Der.Rosengarten.GERMAN.DOKU.WS.HDTV.x264-aWake
 		//<@PREBot> [PRE] [BLURAY-X264] 1941.1979.720p.BluRay.x264-FLAME
 		//todo fix regex 
-		if (preg_match('/^PRE:\s+\[(?P<category>.+?)\]\s+(?P<title>.+)$/i', $this->_channelData['message'], $matches)) {
+		if (preg_match(/^\[PRE\]\s+\[(?P<category>.+?)\]\s+(?P<title>.+)/i', $this->_channelData['message'], $matches)) {
 			$this->CurPre['source'] = '#pre@opentracker';
 			$this->siftMatches($matches);
 
