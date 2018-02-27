@@ -189,7 +189,7 @@ class IRCScraper extends IRCClient
 
 			case '#pr3':
 				if ($this->checkSimilarity($poster, 'BumpOnALog')) {
-					$this->corrupt_pre();
+					$this->corrupt_pr3();
 				}
 				break;
 			
@@ -648,18 +648,18 @@ class IRCScraper extends IRCClient
 	 *
 	 * @access protected
 	 */
-	protected function corrupt_pre()
+	protected function corrupt_pr3()
 	{
 		//PRE: [TV-X264] Tinga.Tinga.Fabeln.S02E11.Warum.Bienen.stechen.GERMAN.WS.720p.HDTV.x264-RFG
 		if (preg_match('/^PRE:\s+\[(?P<category>.+?)\]\s+(?P<title>.+)$/i', $this->_channelData['message'], $matches)) {
-			$this->CurPre['source'] = '#pre@corrupt';
+			$this->CurPre['source'] = '#pr3@corrupt';
 			$this->siftMatches($matches);
 
 		//NUKE: Miclini-Sunday_Morning_P1-DIRFIX-DAB-03-30-2014-G4E [dirfix.must.state.name.of.release.being.fixed] [EthNet]
 		//UNNUKE: Youssoupha-Sur_Les_Chemins_De_Retour-FR-CD-FLAC-2009-0MNi [flac.rule.4.12.states.ENGLISH.artist.and.title.must.be.correct.and.this.is.not.ENGLISH] [LocalNet]
 		//MODNUKE: Miclini-Sunday_Morning_P1-DIRFIX-DAB-03-30-2014-G4E [nfo.must.state.name.of.release.being.fixed] [EthNet]
 		} else if (preg_match('/(?P<nuke>(MOD|OLD|RE|UN)?NUKE):\s+(?P<title>.+?)\s+\[(?P<reason>.+?)\]/i', $this->_channelData['message'], $matches)) {
-			$this->CurPre['source'] = '#pre@corrupt';
+			$this->CurPre['source'] = '#pr3@corrupt';
 			$this->siftMatches($matches);
 		}
 	}
