@@ -76,17 +76,17 @@ if (defined('pre_settings')) {
 		 * Whether to fetch PRE's from SRRDB.
 		 * @default false
 		 */
-		define('FETCH_SRRDB', false);
+		define('FETCH_SRRDB', true);
 		/**
 		 * Whether to fetch PRE's from xrel.to or not.
 		 * @default false
 		 */
-		define('FETCH_XREL', false);
+		define('FETCH_XREL', true);
 		/**
 		 * Whether to fetch P2P PRE's from xrel.to or not.
 		 * @default false
 		 */
-		define('FETCH_XREL_P2P', false);
+		define('FETCH_XREL_P2P', true);
 	}
 
 	/*******************************************************************************************************************
@@ -257,7 +257,7 @@ if (defined('pre_settings')) {
 			serialize(
 				array(
 					// Channel                             Password.
-					'#alt.binaries.inner-sanctum'          => null,
+					//'#alt.binaries.inner-sanctum'          => null,
 					'#alt.binaries.cd.image'               => null,
 					'#alt.binaries.movies.divx'            => null,
 					'#alt.binaries.sounds.mp3.complete_cd' => null,
@@ -267,14 +267,6 @@ if (defined('pre_settings')) {
 					'#alt.binaries.games.wii'              => null,
 					'#alt.binaries.games.xbox360'          => null,
 					'#alt.binaries.sony.psp'               => null,
-					'#scnzb'                               => null,
-					'#tvnzb'                               => null,
-					// The following require passwords:
-					//'#alt.binaries.teevee'                 => '',
-					//'#alt.binaries.moovee'                 => '',
-					//'#alt.binaries.erotica'                => '',
-					//'#alt.binaries.flac'                   => '',
-					//'#alt.binaries.foreign'                => '',
 				)
 			)
 		);
@@ -326,6 +318,17 @@ if (defined('pre_settings')) {
 		 * @default false
 		 */
 		define('CORRUPT_BOT_DEBUG', false);
+		/**
+		 * List of channels you can scrape.
+		 * @note Add // in front of the '#channelName to block it.
+		 */
+		define('CORRUPT_BOT_CHANNELS',
+			serialize(
+				array(
+					// Channel                             Password.
+					'#pre'			               => null,
+					'#pr3'				       => null,
+				)
 	}
 }
 
@@ -421,7 +424,7 @@ else if (defined('req_settings')) {
 		serialize(
 			array(
 				// Channel                             Password.
-				'#alt.binaries.inner-sanctum'          => null,
+				//'#alt.binaries.inner-sanctum'          => null,
 				'#alt.binaries.cd.image'               => null,
 				'#alt.binaries.movies.divx'            => null,
 				'#alt.binaries.sounds.mp3.complete_cd' => null,
@@ -431,15 +434,7 @@ else if (defined('req_settings')) {
 				'#alt.binaries.games.wii'              => null,
 				'#alt.binaries.games.xbox360'          => null,
 				'#alt.binaries.sony.psp'               => null,
-				'#scnzb'                               => null,
-				'#tvnzb'                               => null,
-				// The following require passwords:
-				//'#alt.binaries.teevee'                 => '',
-				//'#alt.binaries.moovee'                 => '',
-				//'#alt.binaries.erotica'                => '',
-				//'#alt.binaries.flac'                   => '',
-				//'#alt.binaries.foreign'                => '',
-			)
+				)
 		)
 	);
 }
