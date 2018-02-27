@@ -101,7 +101,7 @@ class IRCScraper extends IRCClient
 				$realName    = CORRUPT_BOT_REALNAME;
 				$password    = CORRUPT_BOT_PASSWORD;
 				$tls         = CORRUPT_BOT_ENCRYPTION;
-				$channelList = array('#pre' => null);
+				$channelList = unserialize(CORRUPT_BOT_CHANNELS);
 				break;
 
 			default:
@@ -187,6 +187,13 @@ class IRCScraper extends IRCClient
 				}
 				break;
 
+			case '#pr3':
+				if ($this->checkSimilarity($poster, 'BumpOnALog')) {
+					$this->corrupt_pre();
+				}
+				break;
+			
+			
 			case '#alt.binaries.inner-sanctum':
 				if ($this->checkSimilarity($poster, 'sanctum')) {
 					$this->inner_sanctum();
@@ -636,6 +643,27 @@ class IRCScraper extends IRCClient
 		}
 	}
 
+	/**
+	 * Gets new PRE from #pr3 on Corrupt-net
+	 *
+	 * @access protected
+	 */
+	protected function corrupt_pre()
+	{
+		//PRE: [TV-X264] Tinga.Tinga.Fabeln.S02E11.Warum.Bienen.stechen.GERMAN.WS.720p.HDTV.x264-RFG
+		if (preg_match('/^PRE:\s+\[(?P<category>.+?)\]\s+(?P<title>.+)$/i', $this->_channelData['message'], $matches)) {
+			$this->CurPre['source'] = '#pre@corrupt';
+			$this->siftMatches($matches);
+
+		//NUKE: Miclini-Sunday_Morning_P1-DIRFIX-DAB-03-30-2014-G4E [dirfix.must.state.name.of.release.being.fixed] [EthNet]
+		//UNNUKE: Youssoupha-Sur_Les_Chemins_De_Retour-FR-CD-FLAC-2009-0MNi [flac.rule.4.12.states.ENGLISH.artist.and.title.must.be.correct.and.this.is.not.ENGLISH] [LocalNet]
+		//MODNUKE: Miclini-Sunday_Morning_P1-DIRFIX-DAB-03-30-2014-G4E [nfo.must.state.name.of.release.being.fixed] [EthNet]
+		} else if (preg_match('/(?P<nuke>(MOD|OLD|RE|UN)?NUKE):\s+(?P<title>.+?)\s+\[(?P<reason>.+?)\]/i', $this->_channelData['message'], $matches)) {
+			$this->CurPre['source'] = '#pre@corrupt';
+			$this->siftMatches($matches);
+		}
+	}
+	
 	/**
 	 * Gets new PRE from #a.b.inner-sanctum.
 	 *
